@@ -5,7 +5,7 @@
 [X] Refreshing while on the blog page does not re-navigate the user, and the blog still shows its required content
 [X] The blog page shows all comments for that blog
 [X] Comments include the author and body of that comment
-[] Once logged in Users can Create Blogs
+[X] Once logged in Users can Create Blogs
 [] Once logged in Users can Edit Blogs
 [] Once logged in Users can Delete Blogs
 [] Once logged in Users can Create Comments

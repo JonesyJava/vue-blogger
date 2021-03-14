@@ -2,6 +2,18 @@
   <div class="home flex-grow-1 align-items-center justify-content-center">
     <h1 class="text-light">Welcome to Hive Mind Blogger</h1>
     <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg my-2"
+          data-toggle="modal"
+          data-target="#create-blog"
+        >
+          Make Blog
+        </button>
+      </div>
+    </div>
+    <div class="row">
       <Blog v-for="blog in state.blogs" :key="blog.id" :blog="blog" />
     </div>
   </div>
@@ -16,7 +28,8 @@ export default {
   name: 'Home',
   setup() {
     const state = reactive({
-      blogs: computed(() => AppState.blog)
+      blogs: computed(() => AppState.blog),
+      user: computed(() => AppState.user)
     })
     onMounted(async () => {
       await blogsService.getAllBlogs()

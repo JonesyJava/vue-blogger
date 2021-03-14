@@ -14,6 +14,7 @@
       Made with 🩸😰😭 by Jonesy
     </div>
   </footer>
+  <CreateBlogModal />
 </template>
 
 <script>
