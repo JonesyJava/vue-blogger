@@ -44,6 +44,15 @@ class BlogsService {
   async delete(id) {
     try {
       await sandboxApi.delete('api/blogs/' + id)
+      this.getAllBlogs()
+    } catch (error) {
+      logger.log(error)
+    }
+  }
+
+  async editBlog(id) {
+    try {
+      await sandboxApi.put('api/blogs/' + id)
     } catch (error) {
       logger.log(error)
     }

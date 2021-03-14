@@ -1,34 +1,59 @@
 <template>
   <div class="Blog col-4 justify-content-center" v-if="blog.creator">
-    <router-link :to="{ name: 'BlogDetails', params: { id: blog.id } }">
-      <div class="card">
-        <img
-          class="card-img-top"
-          :src="blog.creator.picture"
-          alt="creator-picture"
-        />
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ blog.title }}
-          </h4>
-          <h5 class="card-title">Author: {{ blog.creator.name }}</h5>
-          <p class="card-text">
-            {{ blog.body }}
-          </p>
-        </div>
+    <div class="card">
+      <img
+        class="card-img-top"
+        :src="blog.creator.picture"
+        alt="creator-picture"
+      />
+      <div class="card-body">
+        <h4 class="card-title">
+          {{ blog.title }}
+        </h4>
+        <h5 class="card-title">Author: {{ blog.creator.name }}</h5>
+        <router-link :to="{ name: 'BlogDetails', params: { id: blog.id } }">
+          <h4>View Blog</h4>
+        </router-link>
       </div>
-    </router-link>
+    </div>
+    <p class="card-text" :contenteditable="state.editBlog" @blur="editBlog">
+      {{ blog.body }}
+      <!-- {{ blog }} -->
+    </p>
+    <div class="card-footer">
+      <div
+        class="text-center p-2 z-2"
+        v-if="blog.creator.name == state.user.name"
+      >
+        <button class="btn btn-danger" @click="deleteBlog">DELETE</button>
+        <button class="btn btn-primary" @click="editBlog">EDIT</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { computed, reactive } from 'vue'
+import { AppState } from '../AppState'
+import { blogsService } from '../services/BlogsService'
 export default {
   name: 'Blog',
   props: {
     blog: { type: Object, required: true }
   },
-  setup() {
-    return {}
+  setup(props) {
+    const state = reactive({
+      user: computed(() => AppState.user)
+    })
+    return {
+      state,
+      deleteBlog() {
+        blogsService.delete(props.blog.id)
+      },
+      editBlog() {
+        blogsService.editBlog(props.blog.id)
+      }
+    }
   }
 }
 </script>
