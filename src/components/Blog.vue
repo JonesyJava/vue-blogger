@@ -14,12 +14,12 @@
         <router-link :to="{ name: 'BlogDetails', params: { id: blog.id } }">
           <h4>View Blog</h4>
         </router-link>
+        <p class="card-text" :contenteditable="state.editBlog" @blur="editBlog">
+          {{ blog.body }}
+          <!-- {{ blog }} -->
+        </p>
       </div>
     </div>
-    <p class="card-text" :contenteditable="state.editBlog" @blur="editBlog">
-      {{ blog.body }}
-      <!-- {{ blog }} -->
-    </p>
     <div class="card-footer">
       <div
         class="text-center p-2 z-2"
