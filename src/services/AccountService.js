@@ -1,6 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-import { api } from './AxiosService'
+import { api, sandboxApi } from './AxiosService'
 
 class AccountService {
   async getAccount() {
@@ -10,6 +10,12 @@ class AccountService {
     } catch (err) {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
+  }
+
+  async getBlogsByAccount() {
+    const res = await sandboxApi.get('account/blogs')
+    AppState.userBlogs = res.data
+    logger.log(res)
   }
 }
 

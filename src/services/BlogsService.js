@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { sandboxApi } from './AxiosService'
@@ -50,9 +51,12 @@ class BlogsService {
     }
   }
 
-  async editBlog(id) {
+  async editBlog(id, newTitle) {
     try {
-      await sandboxApi.put('api/blogs/' + id)
+      const blog = { title: newTitle }
+      const res = await sandboxApi.put('api/blogs/' + id, blog)
+      console.log(res)
+      this.getAllBlogs()
     } catch (error) {
       logger.log(error)
     }

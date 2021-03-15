@@ -6,9 +6,10 @@
 [X] The blog page shows all comments for that blog
 [X] Comments include the author and body of that comment
 [X] Once logged in Users can Create Blogs
-[] Once logged in Users can Edit Blogs
-[] Once logged in Users can Delete Blogs
-[] Once logged in Users can Create Comments
+[X] Once logged in Users can Delete Blogs
+[X] Once logged in Users can Create Comments
+[X] Users can only modify/delete data they created (the UI should reflect this, disabled, hidden etc.)
+[X] Users have an Account Page that shows all of their blogs, they must be logged in to view this page
+
 [] Once logged in Users can Delete Comments
-[] Users can only modify/delete data they created (the UI should reflect this, disabled, hidden etc.)
-[] Users have an Account Page that shows all of their blogs, they must be logged in to view this page
+[] Once logged in Users can Edit Blogs

@@ -23,6 +23,24 @@
               :key="comments.id"
               :comments="comments"
             />
+            <form class="text-center">
+              <div>
+                <input
+                  type="text"
+                  v-model="state.newComment.body"
+                  placeholder="Add Your Comment Here"
+                />
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="createComment"
+                >
+                  New Comment
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -34,7 +52,9 @@
 import { computed, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { blogsService } from '../services/BlogsService'
+import { commentService } from '../services/CommentService'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'BlogDetails',
@@ -43,7 +63,8 @@ export default {
     // const router = useRouter()
     const state = reactive({
       blog: computed(() => AppState.activeBlog),
-      comments: computed(() => AppState.activeBlogComments)
+      comments: computed(() => AppState.activeBlogComments),
+      newComment: { blog: route.params.id }
     })
     onMounted(async () => {
       await blogsService.getBlog(route.params.id)
@@ -51,7 +72,15 @@ export default {
     })
     return {
       route,
-      state
+      state,
+      async createComment() {
+        try {
+          await commentService.createComment(state.newComment)
+          await blogsService.getBlogComments(route.params.id)
+        } catch (error) {
+          logger.log(error)
+        }
+      }
     }
   },
   components: {}

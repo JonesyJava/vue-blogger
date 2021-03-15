@@ -7,7 +7,11 @@
         alt="creator-picture"
       />
       <div class="card-body">
-        <h4 class="card-title">
+        <h4
+          class="card-title"
+          :contenteditable="state.editBlog"
+          @blur="editBlog"
+        >
           {{ blog.title }}
         </h4>
         <h5 class="card-title">Author: {{ blog.creator.name }}</h5>
@@ -26,7 +30,10 @@
         v-if="blog.creator.name == state.user.name"
       >
         <button class="btn btn-danger" @click="deleteBlog">DELETE</button>
-        <button class="btn btn-primary" @click="editBlog">EDIT</button>
+        <!-- <i class="fa fa-pencil" @click="editBlog"></i>
+        <button type="button" class="btn btn-primary" @click="editBlog">
+          ...
+        </button> -->
       </div>
     </div>
   </div>
@@ -43,15 +50,16 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      editPost: false
     })
     return {
       state,
       deleteBlog() {
         blogsService.delete(props.blog.id)
       },
-      editBlog() {
-        blogsService.editBlog(props.blog.id)
+      editBlog(event) {
+        blogsService.editBlog(props.blog.id, event.target.innerText)
       }
     }
   }
