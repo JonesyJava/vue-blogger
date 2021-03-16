@@ -60,7 +60,6 @@ export default {
   name: 'BlogDetails',
   setup() {
     const route = useRoute()
-    // const router = useRouter()
     const state = reactive({
       blog: computed(() => AppState.activeBlog),
       comments: computed(() => AppState.activeBlogComments),
